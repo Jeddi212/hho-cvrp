@@ -20,6 +20,8 @@ def insertion(r):
     """
     i, j = random_indices(len(r))
 
+    print(f"INSERTION INDEX i: {i}, j: {j}")
+
     r[i+1:j+1], r[i] = r[i:j], r[j]
     return r
 
@@ -43,6 +45,8 @@ def inverse(r):
     """
     i, j = random_indices(len(r))
 
+    print(f"INVERSE INDEX i: {i}, j: {j}")
+
     r[i:j + 1] = r[j:i - 1:-1] if i != 0 else r[j::-1]
     return r
 
@@ -65,6 +69,8 @@ def swap(r):
     >>> A - B - C - E - D - F - G - H - A
     """
     i, j = random_indices(len(r))
+
+    print(f"SWAP INDEX i: {i}, j: {j}")
 
     r[i], r[j] = r[j], r[i]
     return r

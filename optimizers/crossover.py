@@ -5,6 +5,7 @@ import numpy as np
 def pmx(parent1, parent2):
     # randomly select two crossover points
     cp = sorted(np.random.randint(len(parent1), size=2))
+    print(f"CX p1: {cp[0]}, p2: {cp[1]}")
 
     # create two empty offspring solutions
     offspring1, offspring2 = [-1] * len(parent1), [-1] * len(parent2)
@@ -13,6 +14,7 @@ def pmx(parent1, parent2):
     offspring1[cp[0]:cp[1] + 1] = parent2[cp[0]:cp[1] + 1]
     offspring2[cp[0]:cp[1] + 1] = parent1[cp[0]:cp[1] + 1]
     mid1, mid2 = parent2[cp[0]:cp[1] + 1], parent1[cp[0]:cp[1] + 1]
+    print(f"MID1: {mid1}, MID2: {mid2}")
 
     for i in range(len(parent1)):
         if i < cp[0] or i > cp[1]:
