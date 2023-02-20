@@ -42,6 +42,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
     rabbit_location = numpy.zeros(dim)
     rabbit_energy = float("inf")  # change this to -inf for maximization problems
     fitness = float("inf")
+    fs = [float("inf") for _ in range(search_agent_no)]
 
     if not isinstance(lb, list):
         lb = [lb for _ in range(dim)]
@@ -83,6 +84,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
         print(f"ELANG {i} - {list(x_hawks[i, :].astype(int))}")
         fitness = objf(x_hawks[i, :].astype(int), distances, max_capacity, demands)
         print(f"Fitness : {fitness}")
+        fs[i] = fitness
 
         # Update the location of Rabbit
         if fitness < rabbit_energy:  # Change this to > for maximization problem
@@ -265,7 +267,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                     Y = y1 if yobjf1 < yobjf2 else y2
                     print(f"MAKA Y -> {Y}")
 
-                    if objf(Y, distances, max_capacity, demands) < fitness:  # improved move?
+                    if objf(Y, distances, max_capacity, demands) < fs[i]:  # improved move?
                         x_hawks[i, :] = Y.copy()
                     else:  # hawks perform levy-based short rapid dives around the rabbit
                         print(f"MASUK Exploitation WPRD 2 - E: {escaping_energy}, r: {r}")
@@ -294,7 +296,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                         zobjf = objf(x2, distances, max_capacity, demands)
                         print(f"Z objf {i}: {zobjf}")
 
-                        if zobjf < fitness:
+                        if zobjf < fs[i]:
                             x_hawks[i, :] = x2.copy()
                 if (
                         r < 0.5 and abs(escaping_energy) < 0.5
@@ -323,7 +325,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                     yobjf = objf(x1, distances, max_capacity, demands)
                     print(f"Y objf {i}: {yobjf}")
 
-                    if yobjf < fitness:  # improved move?
+                    if yobjf < fs[i]:  # improved move?
                         x_hawks[i, :] = x1.copy()
                     else:  # Perform levy-based short rapid dives around the rabbit
                         print(f"MASUK Exploitation WPRD 4 - E: {escaping_energy}, r: {r}")
@@ -352,7 +354,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                         zobjf = objf(x2, distances, max_capacity, demands)
                         print(f"Z objf {i}: {zobjf}")
 
-                        if zobjf < fitness:
+                        if zobjf < fs[i]:
                             x_hawks[i, :] = x2.copy()
                 print()
 
@@ -380,6 +382,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
             fitness = objf(x_hawks[i, :].astype(int), distances, max_capacity, demands
                            ) if t < max_iter - 1 else normal_cvrp(test_route, distances)
             print(f"Fitness : {fitness}")
+            fs[i] = fitness
 
             # Update the location of Rabbit
             if fitness < rabbit_energy:  # Change this to > for maximization problem
