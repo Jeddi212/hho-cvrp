@@ -259,10 +259,10 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                     print(f"Y PMX1  {i} -> {list(y2)}")
                     yobjf1 = objf(y1, distances, max_capacity, demands)
                     yobjf2 = objf(y2, distances, max_capacity, demands)
-                    print(f"Y objf {i}: {yobjf1}")
-                    print(f"Y objf {i}: {yobjf2}")
+                    print(f"Y objf y1: {yobjf1}")
+                    print(f"Y objf y2: {yobjf2}")
 
-                    Y = y1 if yobjf1 > yobjf2 else y2
+                    Y = y1 if yobjf1 < yobjf2 else y2
                     print(f"MAKA Y -> {Y}")
 
                     if objf(Y, distances, max_capacity, demands) < fitness:  # improved move?

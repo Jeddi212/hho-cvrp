@@ -30,6 +30,8 @@ def cvrp(solution, distances, max_capacity, demands):
     """
     routes = split_customer(solution, max_capacity, demands)
 
+    print(routes)
+
     total = 0
     for r in routes:
         for i in range(len(r) - 1):
