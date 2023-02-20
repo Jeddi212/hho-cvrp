@@ -80,7 +80,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
 
         # fitness of locations
         x_hawks[i, :] = random_key(x_hawks[i, :])
-        print(f"ELANG {i} - {list(x_hawks[i, :])}")
+        print(f"ELANG {i} - {list(x_hawks[i, :].astype(int))}")
         fitness = objf(x_hawks[i, :].astype(int), distances, max_capacity, demands)
         print(f"Fitness : {fitness}")
 
@@ -88,7 +88,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
         if fitness < rabbit_energy:  # Change this to > for maximization problem
             rabbit_energy = fitness
             rabbit_location = x_hawks[i, :].copy()
-    print(f"Rabbit Location -> {list(rabbit_location)}")
+    print(f"Rabbit Location -> {list(rabbit_location.astype(int))}")
     print(f"Rabbit : {rabbit_energy}")
     print()
     print()
@@ -132,7 +132,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
 
                 if q >= 0.5:
                     print(f"MASUK Exploration 1 - E: {escaping_energy}, q: {q}")
-                    print(f"ELANG {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
                     print(f"RANDM {rand_hawk_index} -> {list(x_rand)}")
                     # perch based on other family members
                     r1 = round(random.random(), 2)
@@ -144,13 +144,13 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                     x_hawks[i, :] = xr(x_hawks[i, :])
                     print(f"ELANG 2.9  {i} -> {list(x_hawks[i, :])}")
                     x_hawks[i, :] = random_key(x_hawks[i, :])
-                    print(f"ELANG RK   {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG RK   {i} -> {list(x_hawks[i, :].astype(int))}")
                     x_hawks[i, :] = mutate.swap(x_hawks[i, :])
-                    print(f"ELANG swap {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG swap {i} -> {list(x_hawks[i, :].astype(int))}")
 
                 elif q < 0.5:
                     print(f"MASUK Exploration 2 - E: {escaping_energy}, q: {q}")
-                    print(f"ELANG {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
                     x_mean = xr(x_hawks.mean(0))
                     print(f"MEAN    -> {list(x_mean)}")
                     r3 = round(random.random(), 2)
@@ -164,9 +164,9 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                     x_hawks[i, :] = xr(x_hawks[i, :])
                     print(f"ELANG 2.9  {i} -> {list(x_hawks[i, :])}")
                     x_hawks[i, :] = random_key(x_hawks[i, :])
-                    print(f"ELANG RK   {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG RK   {i} -> {list(x_hawks[i, :].astype(int))}")
                     x_hawks[i, :] = mutate.inverse(x_hawks[i, :])
-                    print(f"ELANG invr {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG invr {i} -> {list(x_hawks[i, :].astype(int))}")
 
                 print()
 
@@ -189,8 +189,8 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                         r >= 0.5 > abs(escaping_energy)
                 ):  # Hard besiege Eq. (6) in paper
                     print(f"MASUK Exploitation 2 - E: {escaping_energy}, r: {r}")
-                    print(f"ELANG {i} -> {list(x_hawks[i, :])}")
-                    print(f"Rabbit Location -> {list(rabbit_location)}")
+                    print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
+                    print(f"Rabbit Location -> {list(rabbit_location.astype(int))}")
 
                     x_hawks[i, :] = rabbit_location - escaping_energy * abs(
                         rabbit_location - x_hawks[i, :]
@@ -198,16 +198,16 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                     x_hawks[i, :] = xr(x_hawks[i, :])
                     print(f"ELANG 2.15 {i} -> {list(x_hawks[i, :])}")
                     x_hawks[i, :] = random_key(x_hawks[i, :])
-                    print(f"ELANG RK   {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG RK   {i} -> {list(x_hawks[i, :].astype(int))}")
                     x_hawks[i, :] = mutate.swap(x_hawks[i, :])
-                    print(f"ELANG swap {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG swap {i} -> {list(x_hawks[i, :].astype(int))}")
 
                 if (
                         r >= 0.5 and abs(escaping_energy) >= 0.5
                 ):  # Soft besiege Eq. (4) in paper
                     print(f"MASUK Exploitation 1 - E: {escaping_energy}, r: {r}")
-                    print(f"ELANG {i} -> {list(x_hawks[i, :])}")
-                    print(f"Rabbit Location -> {list(rabbit_location)}")
+                    print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
+                    print(f"Rabbit Location -> {list(rabbit_location.astype(int))}")
 
                     r5 = round(random.random(), 2)
                     print(f"r5: {r5}")
@@ -222,9 +222,9 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                     x_hawks[i, :] = xr(x_hawks[i, :])
                     print(f"ELANG 2.12 {i} -> {list(x_hawks[i, :])}")
                     x_hawks[i, :] = random_key(x_hawks[i, :])
-                    print(f"ELANG RK   {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG RK   {i} -> {list(x_hawks[i, :].astype(int))}")
                     x_hawks[i, :] = mutate.swap(x_hawks[i, :])
-                    print(f"ELANG swap {i} -> {list(x_hawks[i, :])}")
+                    print(f"ELANG swap {i} -> {list(x_hawks[i, :].astype(int))}")
 
                 # phase 2: --------performing team rapid dives (leapfrog movements)----------
 
@@ -233,8 +233,8 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                 ):  # Soft besiege Eq. (10) in paper
                     # rabbit try to escape by many zigzag deceptive motions
                     print(f"MASUK Exploitation WPRD 1 - E: {escaping_energy}, r: {r}")
-                    print(f"ELANG {i} -> {list(x_hawks[i, :])}")
-                    print(f"Rabbit Location -> {list(rabbit_location)}")
+                    print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
+                    print(f"Rabbit Location -> {list(rabbit_location.astype(int))}")
 
                     r5 = round(random.random(), 2)
                     print(f"r5: {r5}")
@@ -269,14 +269,18 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                         x_hawks[i, :] = Y.copy()
                     else:  # hawks perform levy-based short rapid dives around the rabbit
                         print(f"MASUK Exploitation WPRD 2 - E: {escaping_energy}, r: {r}")
-                        print(f"ELANG {i} -> {list(x_hawks[i, :])}")
-                        print(f"Rabbit Location -> {list(rabbit_location)}")
+                        print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
+                        print(f"Rabbit Location -> {list(rabbit_location.astype(int))}")
 
+                        S = numpy.round(numpy.random.randn(dim), 4)
+                        print(f"S    -> {list(S)}")
+                        LF = numpy.round(levy(dim), 4)
+                        print(f"LF    -> {list(LF)}")
                         x2 = (
                                 rabbit_location
                                 - escaping_energy
                                 * abs(jump_strength * rabbit_location - x_hawks[i, :])
-                                + numpy.multiply(numpy.random.randn(dim), levy(dim))
+                                + numpy.multiply(S, LF)
                         )
                         x2 = xr(x2)
                         print(f"Z 2.19 {i} -> {list(x2)}")
@@ -296,8 +300,8 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                         r < 0.5 and abs(escaping_energy) < 0.5
                 ):  # Hard besiege Eq. (11) in paper
                     print(f"MASUK Exploitation WPRD 3 - E: {escaping_energy}, r: {r}")
-                    print(f"ELANG {i} -> {list(x_hawks[i, :])}")
-                    print(f"Rabbit Location -> {list(rabbit_location)}")
+                    print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
+                    print(f"Rabbit Location -> {list(rabbit_location.astype(int))}")
                     x_mean = xr(x_hawks.mean(0))
                     print(f"MEAN    -> {list(x_mean)}")
                     r5 = round(random.random(), 2)
@@ -323,16 +327,20 @@ def hho(objf, data, sol, search_agent_no, max_iter):
                         x_hawks[i, :] = x1.copy()
                     else:  # Perform levy-based short rapid dives around the rabbit
                         print(f"MASUK Exploitation WPRD 4 - E: {escaping_energy}, r: {r}")
-                        print(f"ELANG {i} -> {list(x_hawks[i, :])}")
-                        print(f"Rabbit Location -> {list(rabbit_location)}")
+                        print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
+                        print(f"Rabbit Location -> {list(rabbit_location.astype(int))}")
                         x_mean = xr(x_hawks.mean(0))
                         print(f"MEAN    -> {list(x_mean)}")
 
+                        S = numpy.round(numpy.random.randn(dim), 4)
+                        print(f"S    -> {list(S)}")
+                        LF = numpy.round(levy(dim), 4)
+                        print(f"LF    -> {list(LF)}")
                         x2 = (
                                 rabbit_location
                                 - escaping_energy
                                 * abs(jump_strength * rabbit_location - x_hawks.mean(0))
-                                + numpy.multiply(numpy.random.randn(dim), levy(dim))
+                                + numpy.multiply(S, LF)
                         )
                         x2 = xr(x2)
                         print(f"Z 2.19 {i} -> {list(x2)}")
@@ -352,7 +360,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
 
         print(f"TENTUKAN KELINCI LAGI PADA ITER {t}")
         for i in range(0, search_agent_no):
-            print(f"ELANG {i} -> {list(x_hawks[i, :])}")
+            print(f"ELANG {i} -> {list(x_hawks[i, :].astype(int))}")
 
             # fitness of locations
             if t < max_iter - 1:
@@ -380,7 +388,7 @@ def hho(objf, data, sol, search_agent_no, max_iter):
 
                 if t == max_iter - 1:
                     best_route = test_route
-        print(f"Rabbit Location -> {list(rabbit_location)}")
+        print(f"Rabbit Location -> {list(rabbit_location.astype(int))}")
         print(f"Rabbit : {rabbit_energy}")
 
         convergence_curve[t] = rabbit_energy
